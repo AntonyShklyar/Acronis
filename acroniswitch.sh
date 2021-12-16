@@ -58,14 +58,14 @@ do
 		if [ $var = 1 ]
                 then
                         echo $(date +"%Y%m%d-%H%M%S")  Backup server $(if [[ $(hostname | grep win) ]]; then echo OCOD; elif [[ $(hostname | grep 02) ]]; then echo RCOD; fi) is available >> /var/log/acroniswithc.log
-                        #Checking the current KSC server to which the KSC agent is connecting
+                        #Checking the current Acronis server to which the Acronis agent is connecting
 			if [ "$(less /var/lib/Acronis/BackupAndRecovery/MMS/user.config | grep "<address>" | awk '{print $1}' | sed "s/<address>//g" | sed "s%</address>%%g")" = "$g" ]
                         then
                                 exit
 			else 
 				/usr/lib/Acronis/RegisterAgentTool/RegisterAgent -o register -a $g
 			fi
-			#Switching a KSC Agent to a Different KSC Server
+			#Switching a Acronis Agent to a Different Acronis Server
                 elif [ $var = 2 ]
                 then
                         echo $(date +"%Y%m%d-%H%M%S")  Backup server $(if [[ $(hostname | grep win) ]]; then echo RCOD; elif [[ $(hostname | grep 02) ]]; then echo OCOD; fi) is available >> /var/log/kasper.log
