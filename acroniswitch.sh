@@ -8,7 +8,7 @@ massive()
 {
 	#Selecting IP-addresses of the main and backup storages
 	local -n IP=$1
-	if [[ $(hostname | grep win) ]]
+	if [[ $(hostname | grep 01) ]]
 	then	
         	IPIZ=(10.111.15.95 10.111.15.178)
         	IPVN=(10.111.23.101 10.149.25.101)
@@ -25,7 +25,7 @@ massive()
                 for t in ${IPVN[@]}; do
                         IP+=($t)
                 done
-        elif [[ $(hostname | grep win) ]]; then
+        elif [[ $(hostname | grep iz) ]]; then
                 for t in ${IPIZ[@]}; do
                         IP+=($t)
                 done
@@ -47,31 +47,31 @@ do
         then
                 if [ $var = 1 ]
                 then
-			echo $(date +"%Y%m%d-%H%M%S") Backup server $(if [[ $(hostname | grep win) ]]; then echo OCOD; elif [[ $(hostname | grep 02) ]]; then echo RCOD; fi) is not available >> /var/log/acroniswithc.log
+			echo $(date +"%Y%m%d-%H%M%S") Backup server $(if [[ $(hostname | grep 01) ]]; then echo OCOD; elif [[ $(hostname | grep 02) ]]; then echo RCOD; fi) is not available >> /var/log/backupdb.log
 			continue
 		elif [ $var = 2 ]
 		then 
-			echo $(date +"%Y%m%d-%H%M%S") Backup server $(if [[ $(hostname | grep win) ]]; then echo RCOD; elif [[ $(hostname | grep 02) ]]; then echo OCOD; fi) is not available >> /var/log/acroniswithc.log
+			echo $(date +"%Y%m%d-%H%M%S") Backup server $(if [[ $(hostname | grep 01) ]]; then echo RCOD; elif [[ $(hostname | grep 02) ]]; then echo OCOD; fi) is not available >> /var/log/backupdb.log
 		 	exit
 		fi
 	else
 		if [ $var = 1 ]
                 then
-                        echo $(date +"%Y%m%d-%H%M%S")  Backup server $(if [[ $(hostname | grep win) ]]; then echo OCOD; elif [[ $(hostname | grep 02) ]]; then echo RCOD; fi) is available >> /var/log/acroniswithc.log
+                        echo $(date +"%Y%m%d-%H%M%S")  Backup server $(if [[ $(hostname | grep 01) ]]; then echo OCOD; elif [[ $(hostname | grep 02) ]]; then echo RCOD; fi) is available >> /var/log/backupdb.log
                         #Checking the current Acronis server to which the Acronis agent is connecting
 			if [ "$(less /var/lib/Acronis/BackupAndRecovery/MMS/user.config | grep "<address>" | awk '{print $1}' | sed "s/<address>//g" | sed "s%</address>%%g")" = "$g" ]
                         then
                                 exit
 			else 
-				/usr/lib/Acronis/RegisterAgentTool/RegisterAgent -o register -a $g
+				/usr/lib/Acronis/RegisterAgentTool/RegisterAgent -o register -a $g && echo $(date +"%Y%m%d-%H%M%S") Backup server change Successful >> /var/log/backupdb.log || echo $(date +"%Y%m%d-%H%M%S")  Backup server change Unsuccessful >> /var/log/backupdb.log 
 			fi
 			#Switching a Acronis Agent to a Different Acronis Server
                 elif [ $var = 2 ]
                 then
-                        echo $(date +"%Y%m%d-%H%M%S")  Backup server $(if [[ $(hostname | grep win) ]]; then echo RCOD; elif [[ $(hostname | grep 02) ]]; then echo OCOD; fi) is available >> /var/log/kasper.log
+                        echo $(date +"%Y%m%d-%H%M%S")  Backup server $(if [[ $(hostname | grep 01) ]]; then echo RCOD; elif [[ $(hostname | grep 02) ]]; then echo OCOD; fi) is available >> /var/log/backupdb.log
 			if [ "$(less /var/lib/Acronis/BackupAndRecovery/MMS/user.config | grep "<address>" | awk '{print $1}' | sed "s/<address>//g" | sed "s%</address>%%g")" != "$g" ]
 			then
-				/usr/lib/Acronis/RegisterAgentTool/RegisterAgent -o register -a $g
+				/usr/lib/Acronis/RegisterAgentTool/RegisterAgent -o register -a $g && echo $(date +"%Y%m%d-%H%M%S")  Backup server change Successful >> /var/log/backupdb.log || echo $(date +"%Y%m%d-%H%M%S")  Backup server change Unsuccessful >> /var/log/backupdb.log
 			fi
 		fi
 	fi
