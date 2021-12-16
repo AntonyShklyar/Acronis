@@ -2,8 +2,8 @@
 
 # The script reconnects the Acronis agent to the backup Acronis Management Server if the main one is unavailable. If the primary Acronis Management Server is available and the agent is connected to the backup, then it reconnects to the primary.
 # Also, the script monitors the availability of the Acronis Management Server via ICMP and checks if the reconnect command was successful.
-
 #massive - select an array of Acronis Server IP addresses depending on the contour
+
 massive()
 {
 	#Selecting IP-addresses of the main and backup storages
