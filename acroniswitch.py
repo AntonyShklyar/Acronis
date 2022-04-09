@@ -31,7 +31,7 @@ def networkavailable(var, g):
 Editable parameters:
 --segment
 The data type is a dictionary.
-Data - domain: list of IP addresses Acronisserver and segments
+Data - domain: list of IP addresses Acronis server and segments
 --codid
 The data type is a dictionary.
 Data - Data Center ID: IP Acronis server
