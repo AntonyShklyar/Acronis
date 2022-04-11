@@ -57,17 +57,17 @@ for var, g in enumerate(IP, 1):
 		a=a.replace("\n","")
 		a = re.sub('<address>','',a)
 		a = re.sub('/<address>','',a)
-		if a==g and var==1:
-                        exit()
+		if a==g and (var==1 or var!=1):
+                        os.system('echo $(date +"%Y%m%d-%H%M%S") Agent Acronis connected to server '+g+' >> /var/log/acronis.log'); exit()
 		elif var==1:
-			if subprocess.call(["/usr/lib/Acronis/RegisterAgentTool/RegisterAgent", "-o", "register", "-a", g]) == 0: os.system('echo $(date +"%Y%m%d-%H%M%S") Acronis Server change operation '+g+' Successful >> /var/log/acronis.log'); exit()
+			if subprocess.call(["/usr/lib/Acronis/RegisterAgentTool/RegisterAgent", "-o", "register", "-a", g]) == 0: os.system('echo $(date +"%Y%m%d-%H%M%S") Server Acronis change operation '+g+' Successful >> /var/log/acronis.log'); exit()
 			else:
-				os.system('echo $(date +"%Y%m%d-%H%M%S") Acronis Server change operation on '+g+' Unsuccessful >> /var/log/acronis.log'); exit()
+				os.system('echo $(date +"%Y%m%d-%H%M%S") Server Acronis change operation on '+g+' Unsuccessful >> /var/log/acronis.log'); exit()
 		elif a!=g and var!=1:
-			if subprocess.call(["/usr/lib/Acronis/RegisterAgentTool/RegisterAgent", "-o", "register", "-a", g]) == 0: os.system('echo $(date +"%Y%m%d-%H%M%S") Acronis Server change operation '+g+' Successful >> /var/log/acronis.log'); exit()
+			if subprocess.call(["/usr/lib/Acronis/RegisterAgentTool/RegisterAgent", "-o", "register", "-a", g]) == 0: os.system('echo $(date +"%Y%m%d-%H%M%S") Server Acronis change operation '+g+' Successful >> /var/log/acronis.log'); exit()
 			else:
-				os.system('echo $(date +"%Y%m%d-%H%M%S") Acronis Server change operation on '+g+' Unsuccessful >> /var/log/acronis.log'); exit()
+				os.system('echo $(date +"%Y%m%d-%H%M%S") Server Acronis change operation on '+g+' Unsuccessful >> /var/log/acronis.log'); exit()
 	elif var != len(acronis):
 		continue
         else:
-                exit()
+                os.system('echo $(date +"%Y%m%d-%H%M%S") Servers Acronis '+str(acronis)+' unavailable >> /var/log/acronis.log'); exit()
