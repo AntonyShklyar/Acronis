@@ -16,6 +16,6 @@ All segments operate within the same data center. The interaction of technical m
 The interaction of technical means between data centers within the same segment is allowed.
 The belonging of a server to a segment/data center can be determined by the domain name/number that is in the FQDN name of each server (should be written in /etc/hostname). For example, the server bd1iz01.ac.com belongs to an isolated segment of the main data center.
 For each segment of the data center, 1 Acronis server is allocated. A total of 9 storage servers (3 in each segment - one in the OCOD and the other in the RCOD and GCOD)
-•	outer segment - 10.111.15.56, 10.111.15.65, 10.111.15.77
+•	external segment - 10.111.15.56, 10.111.15.65, 10.111.15.77
 •	internal segment - 10.111.16.56, 10.111.16.65, 10.111.16.77
 •	isolated segment - 10.111.17.56, 10.111.17.65, 10.111.17.77
