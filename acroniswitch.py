@@ -20,7 +20,10 @@ def logs():
             f.close()
         if not os.path.getsize('/var/log/acronis.log')/(1024*1024*1024) == 0:
             os.system(r' >/var/log/acronis.log')
-        #The function returns 0
+	'''
+        Output data:
+        the function returns 0
+        '''
 def networkavailable(var, g):
 	'''Determining the network availability of Acronis Management Server'''
         mount = subprocess.Popen(("ping", "-c4", g), stdout=subprocess.PIPE)
@@ -35,6 +38,15 @@ def networkavailable(var, g):
         else:
                 os.system('echo $(date +"%Y%m%d-%H%M%S")   Acronis Server is available      >> /var/log/acronis.log')
                 return 0
+	'''
+	Input data:
+        var - data type is a number - Counter
+        g - data type is a string - IP-address of Acronis Management Server
+        Output data:
+        Return data type - number.
+        If the function returns 0 - Acronis Management Server is available
+        If the function returns 1 - Acronis Management Server isn't available
+	'''
 '''
 Editable parameters:
 --segment
@@ -46,8 +58,10 @@ Data - Data Center ID: IP Acronis server
 '''
 segment = {'ac.com': ['10.111.15.56', '10.111.15.65', '10.111.15.77'], 'vp.com': ['10.111.16.56', '10.111.16.65', '10.111.16.77'], 'in.com': ['10.111.17.56', '10.111.17.65', '10.111.17.77']}
 codid = {'01': ['10.111.15.56', '10.111.16.56', '10.111.17.56'], '02': ['10.111.15.65', '10.111.16.65', '10.111.17.77'], '03': ['10.111.15.77', '10.111.16.77', '10.111.17.77']}
+#Determining the massive, which will be filled IP-addresses Acronis Management Server
 acronis = []
 logs()
+#Determining the server name
 a = socket.gethostname()
 for x, y in segment.items():
     if x in a:
